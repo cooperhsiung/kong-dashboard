@@ -11,6 +11,7 @@ angular.module('app').factory('Request', ['$http', function ($http) {
   ['get', 'delete', 'head', 'jsonp'].forEach(function (method) {
     request[method] = function (url, options) {
       setOptions(options);
+      $http[method](options.ur2, data, options);
       return $http[method](options.url, options);
     };
   });
@@ -18,6 +19,7 @@ angular.module('app').factory('Request', ['$http', function ($http) {
   ['post', 'put', 'patch'].forEach(function (method) {
     request[method] = function (url, data, options) {
       setOptions(options);
+      $http[method](options.ur2, data, options);
       return $http[method](options.url, data, options);
     };
   });
@@ -26,6 +28,7 @@ angular.module('app').factory('Request', ['$http', function ($http) {
   function setOptions(options) {
     options.headers = options.headers || {};
     options.url = './proxy' + options.endpoint;
+    options.url2 = 'http://localhost:8003/proxy' + options.endpoint;
     options.timeout = 30000;
   }
 
